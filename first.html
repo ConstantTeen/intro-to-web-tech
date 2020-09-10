@@ -1,12 +1,19 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title> Расписание </title>
         <meta charset="utf-8">
-        <h1 align='center'> Расписание группы М07-003 </h1>
         <style>
             table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
+            }
+            table {
+            margin: auto;
+            background-color:#eb8b35;
+            }
+            .tableHead {
+            background-color: #7e752d; 
+            font-weight: bold;
             }
             .center {
             display: block;
@@ -14,34 +21,46 @@
             margin-right: auto;
             width: 25%;
             }
+            .dayOfWeek {
+            text-align: center;
+            }
+            .mainHeader {
+            text-align: center;
+            }
+            .footerLine {
+            text-align: center;
+            }
+            
         </style>
+        
+        <title> Расписание </title>
+        <h1 class='mainHeader'> Расписание группы М07-003 </h1>
     </head>
     <body>        
-        <table align='center' bgcolor='#eb8b35' >
-            <tr bgcolor='#7e752d' style="font-weight:bold"> 
+        <table>
+            <tr class='tableHead'> 
                 <td>Время</td> <td>Предмет</td> <td>Преподаватель</td> <td>Кабинет</td>
-                
             </tr>
             <tr>
-                <td colspan=4 align='center'><b>Понедельник</b></td>
-            </tr>
-            <tr>
-                <td>09.00-18.00</td> <td>Учебная практика</td> <td></td> <td>КИ</td>
-            </tr>
-            <tr>
-                <td colspan=4 align='center'><b>Вторник</b></td>
+                <td class='dayOfWeek' colspan=4><b>Понедельник</b></td>
             </tr>
             <tr>
                 <td>09.00-18.00</td> <td>Учебная практика</td> <td></td> <td>КИ</td>
             </tr>
             <tr>
-                <td colspan=4 align='center'><b>Среда</b></td>
+                <td class='dayOfWeek' colspan=4><b>Вторник</b></td>
             </tr>
             <tr>
-                <td>10.00-11.30</td> <td>Grid-технологии и облачные вычисления</td> <td>complynx</td><td>26</td>
+                <td>09.00-18.00</td> <td>Учебная практика</td> <td></td> <td>КИ</td>
             </tr>
             <tr>
-                <td>11.30-13.00</td> <td>Web-технологии</td> <td>Новиков А.И.</td><td>26</td>
+                <td class='dayOfWeek' colspan=4><b>Среда</b></td>
+            </tr>
+            <tr>
+                <td>10.00-11.30</td> <td>Grid-технологии и облачные вычисления</td> <td>Новиков А.И.</td><td>26</td>
+            </tr>
+            <tr>
+                <td>11.30-13.00</td> <td>Web-технологии</td> <td>Дрижук Д.Д.</td><td>26</td>
             </tr>
             <tr>
                 <td>13.30-16.10</td> <td>Сетевое программирование</td> <td>Булушев А.Г.</td><td>26</td>
@@ -50,7 +69,7 @@
                 <td>16.20-18.45</td> <td>Теория колебаний и асимптотические методы </td> <td>Аникин А.Ю.</td><td>26</td>
             </tr>
             <tr>
-                <td colspan=4 align='center'><b>Четверг</b></td>
+                <td class='dayOfWeek' colspan=4><b>Четверг</b></td>
             </tr>
             <tr>
                 <td>10.30-12.55</td> <td>Теория маршрутизации </td> <td>Коноплев В.В.</td><td>26</td>
@@ -62,7 +81,7 @@
                 <td>16.00-18.15</td> <td>Английский язык (уровень В2)</td> <td>Гениева Е.Е.</td><td>190 зд. 307</td>
             </tr>
             <tr>
-                <td colspan=4 align='center'><b>Пятница</b></td>
+                <td class='dayOfWeek' colspan=4><b>Пятница</b></td>
             </tr>
             <tr>
                 <td>09.45-12.00</td><td>Общие проблемы сетевой и информационной безопасности</td><td>Афанасьев В.Б.</td><td>Jitsi Meet</td>
@@ -74,5 +93,6 @@
         <img alt='fignya' src='https://img1.liveinternet.ru/images/attach/c/6/89/968/89968603_UuOcIHhfZ8o.jpg' class="center">
     </body>
     <footer>
-        <p align='center'>Автор: <a href='https://t.me/randomnic_k'>Симонов Константин</a></p>
+        <p class='footerLine'>Автор: <a href='https://t.me/randomnic_k'>Симонов Константин</a></p>
+    </footer>
 </html>
