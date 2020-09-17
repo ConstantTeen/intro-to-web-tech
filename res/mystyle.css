@@ -1,0 +1,80 @@
+/* HEADER */
+div#pageHeader{
+    height: 50px;
+    width: 98vw;
+    position: fixed;
+    background: #000;
+    border-radius: 50px;
+}
+/* LEFT CORNER */
+div#pageHeader div#left {
+    width: 10%;
+    height: 100%;
+    float: left;
+}
+button.mainPageButton {
+border: none;
+cursor: pointer;
+width: 100%;
+height: 100%;
+outline: none;
+background-color: Transparent;
+}
+button.mainPageButton img {
+height: 100%;
+}
+/* CENTER */
+div#pageHeader div#center {
+    width: 80%;
+    height: 100%;
+    float: left;
+}
+div#pageHeader div#center h1 {
+    width: 100%;
+    height: 100%;
+    font-size: 40px;
+    font-family: "Verdana";
+    color: #8795af;
+    margin: 0;
+}
+/* RIGHT CORNER */
+div#pageHeader div#right {
+    width: 10%;
+    height: 100%;
+    float: left;
+}
+/* костыль */
+#pageHeader div.empty {
+    clear: left; 
+}
+/* TABLE */
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table {
+    margin: auto;
+    background-color:#c2c9d6;
+}
+th {
+    background-color: #69a0bf; 
+    font-weight: bold;
+    text-align: left;
+}
+table caption {
+    font-family: "Verdana";
+    font-size: 32px;
+}
+div.tableWrapper{/* prevents imposition of the table and the page header on the start screen by shifting down the table */
+    padding-top: calc(50px + 8px); /* the same height as in page header + "margin-top"*/
+}
+/*IMAGE AND TEXT*/
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+}
+.dayOfWeek, .footerLine, div#center {
+    text-align: center;
+}
