@@ -23,6 +23,22 @@ button.mainPageButton {
 }
 button.mainPageButton img {
     height: 100%;
+    
+    animation-name: spin;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+button.mainPageButton img:hover{
+    animation-play-state: paused;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    
+    to {
+        transform: rotate(360deg);
+    }
 }
 /* CENTER */
 div#pageHeader div#center {
@@ -69,7 +85,7 @@ table caption {
 div.tableWrapper{/* prevents imposition of the table and the page header on the start screen by shifting down the table */
     padding-top: calc(50px + 8px); /* the same height as in page header + "margin-top"*/
 }
-/*IMAGE AND TEXT*/
+/*FOOTERIMAGE AND TEXT*/
 .center {
     display: block;
     margin-left: auto;
