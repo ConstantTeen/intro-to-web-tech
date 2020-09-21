@@ -1,0 +1,108 @@
+/* HEADER */
+.pageHeader{
+    height: 50px;
+    width: 98vw;
+    position: fixed;
+    background: #efefef;
+    border: 2px black solid;
+    border-radius: 50px;
+}
+/* LEFT CORNER */
+.left {
+    width: 10%;
+    height: 100%;
+    float: left;
+}
+.mainPageButton {
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    background-color: Transparent;
+}
+.mainPageButton img {
+    height: 100%;
+    
+    animation-name: spin;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+.mainPageButton img:hover{
+    animation-play-state: paused;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* CENTER */
+.center {
+    width: 80%;
+    height: 100%;
+    float: left;
+}
+.center h1 {
+    width: 100%;
+    height: 100%;
+    font-size: 40px;
+    color: #8795af;
+    margin: 0;
+}
+/* RIGHT CORNER */
+.right {
+    width: 10%;
+    height: 100%;
+    float: left;
+}
+/* костыль */
+.empty {
+    clear: left; 
+}
+/* TABLE */
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table {
+    margin: auto;
+    background-color:#c2c9d6;
+}
+th {
+    background-color: #69a0bf; 
+    font-weight: bold;
+    text-align: left;
+}
+.tableWrapper{/* prevents imposition of the table and the page header on the start screen by shifting down the table */
+    padding-top: 58px; /* the same height as in page header + "margin-top"*/
+}
+/*FOOTERIMAGE AND TEXT*/
+.im-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+.dayOfWeek, .footerLine, .center {
+    text-align: center;
+}
+/* HW */
+.homeWork h1 {
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 0;
+}
+.subjects-list li {
+    list-style-type: none;
+}
+/*others*/
+table caption, .center h1, .homeWork h1 {
+    font-family: "Verdana";
+}
+table caption, .homeWork h1 {
+    font-size: 2em;
+}
