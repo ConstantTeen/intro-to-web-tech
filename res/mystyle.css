@@ -78,8 +78,11 @@ th {
     font-weight: bold;
     text-align: left;
 }
+table caption {
+    font-size: 32px;
+}
 .tableWrapper{/* prevents imposition of the table and the page header on the start screen by shifting down the table */
-    padding-top: 58px; /* the same height as in page header + "margin-top"*/
+    padding-top: 66px; /* the same height as in page header + "margin-top"*/
 }
 /*FOOTERIMAGE AND TEXT*/
 .im-center {
@@ -92,18 +95,16 @@ th {
     text-align: center;
 }
 /* HW */
-.homeWork h1 {
+.homeWork > h1 {
     font-weight: normal;
     text-align: center;
     margin-bottom: 0;
+    font-size: 32px;
 }
-.subjects-list li {
+.subjects-list > li {
     list-style-type: none;
 }
 /*others*/
 table caption, .center h1, .homeWork h1 {
-    font-family: "Verdana";
-}
-table caption, .homeWork h1 {
-    font-size: 2em;
+    font-family: "Verdana", serif;
 }
