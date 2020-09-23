@@ -1,0 +1,33 @@
+<script>
+"strict mode";
+
+function valid_code(){
+    let zxc = 'asdasd';
+    let zasd = "asdaszxc";
+    // ajbdjnflkansflkans
+    /* azxlmldknglka*/
+    let asd = "asdxzc";
+    /*asdasd
+    asdasda
+    asdsda*/
+    //asdasdasda
+    /*zxcz
+    
+    xczxczxc*/
+};
+
+function strip_comments(func){
+    let str = String(func);
+    
+    let regexp1 = /\/\/.*$/gmu; // Такие комменты
+    let regexp2 = /\/\*(.*\n*)+\*\//gu; /*Такие комменты*/
+    
+    str = str.replace(regexp1, "");
+    str = str.replace(regexp2, "");
+    
+    return str;
+};
+
+console.log(strip_comments(valid_code));
+
+</script>
