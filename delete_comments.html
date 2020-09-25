@@ -186,7 +186,7 @@ class Handler{
             return;
         }
         if(state === 11){
-            if(ch === '"'){
+            if(ch === '`'){
                 this.#current_state = 0;
             }
             else if(ch === '\\'){
@@ -201,7 +201,7 @@ class Handler{
             return;
         }
         if(state === 12){
-            if(ch === '"'){
+            if(ch === '`'){
                 this.#current_state = 0;
             }
             if(ch === '\\'){
