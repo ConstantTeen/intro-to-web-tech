@@ -1,32 +1,240 @@
 <script>
-"strict mode";
+"use strict";
 
-function valid_code(){
-    let zxc = 'asdasd';
-    let zasd = "asdaszxc";
-    // ajbdjnflkansflkans
-    /* azxlmldknglka*/
-    let asd = "asdxzc";
-    /*asdasd
-    asdasda
-    asdsda*/
-    //asdasdasda
-    /*zxcz
-    
-    xczxczxc*/
-};
+console.log("Program starts...");
+
+let valid_code=`
+#include<cstdio>
+
+/*
+ * Это пример вполне валидного кода на С++
+ * Хочется из него удалить комментарии...
+ * В том числе однострочные, которые начинаются с // */
+int main(int argc, char**argv) {
+	// Здесь продемонстрировано, что строки используют символ " как символ их начала и конца
+	/* А символ \\ используется для экранизации специальных символов, например вот так: \\" */
+	printf("C++ code can contain single-line comments in form of \\"'// comment\\\\n\\"\\n");
+	printf("C++ code can contain multiline comments in form of '/* comment */'\\n");
+	printf("C++ code can contain strings with escaped symbols: \\"\\\\ - backslash \\n - end of line\\"");
+	// Многострочные комментарии, начинающиеся с /* тоже должны быть удалены
+	return 0;
+}
+
+`;
+
+class Handler{
+    #str = "";
+    #current_state = 0;
+    #current_pos = 0;
+    #result = ""
+
+    constructor(str){
+        this.#str = str;
+    }
+
+    get_result(){
+        return this.#result;
+    }
+
+    delete_comments(){
+        let i = this.#current_pos;
+        let str = this.#str;
+        let n = str.length;
+        let state = this.#current_state;
+
+        if(i === n) return;
+
+        let ch = str[i];
+
+        if(state === 0){
+            if(ch === '/'){
+                this.#current_state = 1;
+            }
+            else if(ch === '"'){
+                this.#current_state = 5;
+                this.#result+= ch;
+            }
+            else if(ch === '`'){
+                this.#current_state = 11;
+                this.#result+= ch;
+            }
+            else if(ch === "'"){
+                this.#current_state = 8;
+                this.#result+= ch;
+            }
+            else{
+                this.#result+= ch;
+            }
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 1){
+            if(ch === '/'){
+                this.#current_state = 2;
+            }
+            else if(ch === '*'){
+                this.#current_state = 3;
+            }
+            else{
+                this.#current_state = 0;
+                this.#result+= '/' + ch;
+            }
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 2){
+            if(ch === '\n'){
+                this.#current_state = 0;
+            }
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 3){
+            if(ch === '*'){
+                this.#current_state = 4;
+            }
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 4){
+            if(ch === '/'){
+                this.#current_state = 0;
+            }
+            else{
+                this.#current_state = 3;
+            }
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 5){
+            if(ch === '"'){
+                this.#current_state = 0;
+            }
+            else if(ch === '\\'){
+                this.#current_state = 6;
+            }
+            else{
+                this.#current_state = 5;
+            }
+            this.#result+= ch;
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 6){
+            if(ch === '"'){
+                this.#current_state = 0;
+            }
+            if(ch === '\\'){
+                this.#current_state = 7;
+            }
+            else{
+                this.#current_state = 5;
+            }
+            this.#result+= ch;
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 7){
+            this.#current_state = 5;
+            this.#result+= ch;
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 8){
+            if(ch === "'"){
+                this.#current_state = 0;
+            }
+            else if(ch === '\\'){
+                this.#current_state = 9;
+            }
+            else{
+                this.#current_state = 8;
+            }
+            this.#result+= ch;
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 9){
+            if(ch === "'"){
+                this.#current_state = 0;
+            }
+            if(ch === '\\'){
+                this.#current_state = 10;
+            }
+            else{
+                this.#current_state = 8;
+            }
+            this.#result+= ch;
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 10){
+            this.#current_state = 8;
+            this.#result+= ch;
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 11){
+            if(ch === '"'){
+                this.#current_state = 0;
+            }
+            else if(ch === '\\'){
+                this.#current_state = 12;
+            }
+            else{
+                this.#current_state = 11;
+            }
+            this.#result+= ch;
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 12){
+            if(ch === '"'){
+                this.#current_state = 0;
+            }
+            if(ch === '\\'){
+                this.#current_state = 13;
+            }
+            else{
+                this.#current_state = 11;
+            }
+            this.#result+= ch;
+            this.#current_pos++;
+            this.delete_comments();
+            return;
+        }
+        if(state === 13){
+            this.#current_state = 11;
+            this.#result+= ch;
+            this.#current_pos++;
+            this.delete_comments();
+        }
+    }
+}
+
 
 function strip_comments(func){
     let str = String(func);
-    
-    let regexp1 = /\/\/.*$/gmu; // Такие комменты
-    let regexp2 = /\/\*(.*\n*)+\*\//gu; /*Такие комменты*/
-    
-    str = str.replace(regexp1, "");
-    str = str.replace(regexp2, "");
+    let handler = new Handler(str);
+
+    handler.delete_comments();
+    str = handler.get_result();
     
     return str;
-};
+}
+
 
 console.log(strip_comments(valid_code));
 
