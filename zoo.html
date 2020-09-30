@@ -1,0 +1,153 @@
+<meta charset="utf-8">
+<script>
+class Animal {
+    _weight = 0; // вес животного
+    _height = 0; // высота
+    _fullness = 0; // сытость. число на отрезке [0,1]
+    _state = 'alive'; // живое/мертвое
+    _catch_phrase = "I'm just an Animal.";
+
+    constructor(w,h) {
+        if (this.constructor === Animal) { // попытка сделать абстрактный класс
+            throw new TypeError("Cannot construct Abstract instances directly");
+        }
+        this._weight = w;
+        this._height = h;
+    }
+
+    say_smth(){
+        if(this._state === 'alive'){
+            console.log(this._catch_phrase);
+            return;
+        }
+        console.log("Oh no! I'm dead(");
+    }
+    /* Метод Покормить.
+     * food (float): количество еды
+     */
+    feed(food){
+        if(this._state === 'dead') {
+            console.log("I can't eat, I'm dead!");
+            return;
+        }
+        // приведение food к числу от 0 до 1
+        food-= Math.trunc(food);
+        food = Math.abs(food);
+
+        this._fullness += food; // животное меньше хочет есть
+        this._weight += 20*food; // при этом толстеет
+
+        if(this._fullness > 1){ // если перекормить - оно умрет
+            this._state = 'dead';
+        }
+    }
+    /* Метод Двигаться.
+     * power (float): мощность с которой животное должно двигаться
+     */
+    move(power){
+        // приведение power к числу от 1 до 10
+        power = 1 + Math.abs(power) % 10;
+
+        if(this._state === 'alive'){ // животное может двигаться только если оно живо
+            this._fullness /= power; // чем больше двигается, тем больше хочет есть
+            this._weight /= power; // чем больше двигается, тем меньше вес
+            return;
+        }
+        console.log("I can't move, I'm dead!")
+    }
+
+    is_it_dead(){
+        return this._state !== 'alive';
+    }
+}
+
+class Dog extends Animal{
+    _catch_phrase = "I'm Dog! Woof";
+
+    constructor() {
+        if(arguments.length >= 2) {
+            super(arguments[0], arguments[1]);
+        }else{
+            super(30,50);
+        }
+    }
+}
+
+class Cat extends Animal{
+    _catch_phrase = "I'm Cat! Meow";
+
+    constructor() {
+        if(arguments.length >= 2) {
+            super(arguments[0], arguments[1]);
+        }else{
+            super(30,50);
+        }
+    }
+}
+
+class Zombie{
+    eat_brain(){
+        if(this._zombie){
+            this._fullness+= 0;
+            console.log("Run!!");
+        }else{
+            console.log("This animal is not a zombie!");
+        }
+    }
+    become_zombie(){
+        if(this.is_it_dead()){
+            this._zombie = true;
+            this._catch_phrase = "RAUGH!";
+            this.feed = undefined;
+            this.move = undefined;
+            this.say_smth = function(){
+                console.log(this._catch_phrase);
+            }
+        }else{
+            console.log("Alive animal can't become a zombie!")
+        }
+    }
+}
+
+// let a = new Animal(100,100); // <-- Type Error
+console.log("Let's create a dog and a cat:");
+
+let dog = new Dog();
+let cat = new Cat(35,50);
+
+dog.say_smth();
+cat.say_smth();
+
+console.log("Let's force the dog to eat and move for some time:");
+
+for(let i=0; i < 30; i++){
+    dog.feed(0.2);
+    dog.move(0.3);
+}
+
+if (!dog.is_it_dead()){
+    console.log("It's still alive!");
+}else{
+    console.log("It's dead(");
+}
+
+console.log("Let's force the cat to eat till it's dead");
+while( !cat.is_it_dead() ){
+    cat.feed(0.2);
+}
+cat.say_smth();
+
+console.log("Let's add to animals ability to become a zombie if it's dead:");
+Object.setPrototypeOf(Animal.prototype, Zombie.prototype);
+
+console.log("Let's see what zombie-cat is going to say:");
+cat.become_zombie();
+cat.say_smth();
+console.log("And what about alive dog?");
+dog.say_smth();
+
+console.log("Let's try to make alive dog to eat brain:");
+dog.eat_brain();
+console.log("Let's try to make zombie-cat to eat brain:");
+cat.eat_brain();
+</script>
