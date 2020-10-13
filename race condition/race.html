@@ -159,8 +159,8 @@
      * list: id тега ul (список слов)
      * dictionary(Object): js-словарь. Ключи - возможные последовательности, значения - массивы слов*/
     async function get_words(str){
-        let dictionary = await fetch('dict.json')
-            .then((response) => {
+        let dictionary = await fetch('http://localhost:63342/dict.json')
+        .then((response) => {
                 return response.json();
             });
 
