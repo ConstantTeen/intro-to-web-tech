@@ -12,7 +12,7 @@
 
 <body>
 <div>
-    <input id="sender" type="search" placeholder="Type..." oninput="get_words(sender.value)">
+    <input id="sender" type="search" placeholder="Type..." oninput="get_words(sender.value).then(result=>{console.log(result)})">
     <ul id="list"></ul>
 </div>
 
@@ -159,8 +159,7 @@
      * list: id тега ul (список слов)
      * dictionary(Object): js-словарь. Ключи - возможные последовательности, значения - массивы слов*/
     async function get_words(str){
-        // надо запустить сервер
-        let dictionary = await fetch('http://localhost:8000/race%20condition/dict.json',{mode: "no-cors"})
+        let dictionary = await fetch('dict.json')
         .then((response) => {
                 console.log(response);
                 return response.json();
@@ -171,20 +170,26 @@
         }
 
         let ms = +Math.pow(1e3,1/str.length); // Время обработки. Падает при увеличении длинны str.
-
+        
         if(Object.keys(dictionary).includes(str)){
-            setTimeout(() => {
-                let current_words_array = dictionary[str];
+            
+            return new Promise((recall) => {
+                setTimeout(() => {
+                    let current_words_array = dictionary[str];
 
-                for(let i=0; i < current_words_array.length; i++){
-                    let li = document.createElement('li');
-                    let word = current_words_array[i];
+                    for(let i=0; i < current_words_array.length; i++){
+                        let li = document.createElement('li');
+                        let word = current_words_array[i];
 
-                    li.append(word);
-                    list.append(li);
-                }
-            }, ms)
+                        li.append(word);
+                        list.append(li);
+                    }
+                    recall(current_words_array);
+                }, ms)
+            });
         }
+        
+        return [];
     }
 </script>
 </body>
