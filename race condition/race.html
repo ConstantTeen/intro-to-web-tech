@@ -1,0 +1,189 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Неполноценный словарь</title>
+    <style>
+        #list > li {
+            list-style-type: none;
+        }
+    </style>
+</head>
+
+
+<body>
+<div>
+    <input id="sender" type="search" placeholder="Type..." oninput="get_words(sender.value)">
+    <ul id="list"></ul>
+</div>
+
+<script>
+    "use strict";
+    // let dictionary = {
+    //     'a': [
+    //         "archiepiscopate",
+    //         "anthropophagies",
+    //         "antiabortionist",
+    //         "anticlimactical",
+    //         "antieducational",
+    //         "antiliberalisms",
+    //         "affordabilities",
+    //         "ambisexualities",
+    //         "amorphousnesses",
+    //         "authentications",
+    //         "accessibilities",
+    //         "acculturational",
+    //         "agriculturalist",
+    //         "ambitiousnesses",
+    //         "amphitheatrical",
+    //         "anthropological",
+    //         "antimonarchical",
+    //         "antiquarianisms",
+    //         "antiseparatists",
+    //        " arrondissements",
+    //         "autobiographies",
+    //        " autotransfusion",
+    //        " accountableness",
+    //         "advisablenesses",
+    //        " affectabilities",
+    //        "antilibertarian",
+    //        "antimaterialism",
+    //         "applicabilities",
+    //         "astronautically",
+    //         "attentivenesses",
+    //         "autographically",
+    //         "antidevelopment",
+    //         "antifashionable",
+    //         "antishoplifting",
+    //         "apocalyptically",
+    //         "apprenticeships",
+    //         "atheroscleroses",
+    //        " authoritatively",
+    //         "automatizations",
+    //         "anthropomorphic",
+    //         "aerodynamically",
+    //         "autoradiography",
+    //         "autotetraploidy",
+    //         "aerosolizations",
+    //         "agribusinessman",
+    //        " algorithmically",
+    //         "anagrammatizing",
+    //        " antiferromagnet",
+    //         "agribusinessmen",
+    //         "anonymousnesses",
+    //         "antisegregation",
+    //         "antituberculous",
+    //         "anthropophagous",
+    //         "antimaterialist",
+    //         "antiradicalisms",
+    //         "agranulocytoses",
+    //         "azidothymidines",
+    //        " accommodational",
+    //         "adversarinesses",
+    //        " allotetraploids",
+    //        " alphabetization",
+    //        " alternativeness",
+    //        " analyzabilities",
+    //        " aromatherapists",
+    //         "acknowledgments",
+    //         "adenocarcinomas",
+    //         "autotrophically",
+    //         "associationists",
+    //        " archaeopteryxes"],
+    //     'as': [
+    //         "assimilationism",
+    //         "assimilationist",
+    //         "assignabilities",
+    //         "assiduousnesses",
+    //         "associationisms",
+    //         "associationists",
+    //         "associativities",
+    //         "assertivenesses",
+    //         "astrobiologists",
+    //         "astrophotograph",
+    //         "astronautically",
+    //         "astrophysicists",
+    //         "astrophysically",
+    //         "associationism",
+    //         "associationist",
+    //         "associateships",
+    //         "assistantships",
+    //         "assimilability",
+    //         "assumabilities",
+    //         "assaultiveness",
+    //         "assassinations",
+    //         "astrologically",
+    //         "astronomically",
+    //         "astrophysicist",
+    //         "astrobiologies",
+    //         "astrobiologist",
+    //         "asthenospheres",
+    //         "asthenospheric",
+    //         "asymmetrically",
+    //         "asynchronously",
+    //         "asymptotically",
+    //         "ascertainments"
+    //     ],
+    //     'asy': [
+    //         "asymmetrically",
+    //         "asymptotically",
+    //         "asynchronously",
+    //         "asynchronisms",
+    //         "asyndetically",
+    //         "asymptomatic",
+    //         "asynchronism",
+    //         "asynchronous",
+    //         "asynchronies",
+    //         "asymmetrical"
+    //     ],
+    //     'asyn': [
+    //         "asynchronously",
+    //         "asynchronisms",
+    //         "asyndetically",
+    //         "asynchronism",
+    //         "asynchronous",
+    //         "asynchronies"
+    //     ],
+    //     'async': [
+    //         "asynchronously",
+    //         "asynchronisms",
+    //         "asynchrony"
+    //     ]
+    // }
+
+    /** Вызывается при наборе текста в теге input.
+    * По введенной последовательности букв строит список слов,
+     * каждое из которых с нее начинается.
+     * Чем короче последовательность, тем больше таких слов,
+     * а значит дольше выполняется формирование списка.
+     * Переменные:
+     * list: id тега ul (список слов)
+     * dictionary(Object): js-словарь. Ключи - возможные последовательности, значения - массивы слов*/
+    async function get_words(str){
+        let dictionary = await fetch('dict.json')
+            .then((response) => {
+                return response.json();
+            });
+
+        while (list.firstChild) {
+            list.removeChild(list.firstChild);
+        }
+
+        let ms = +Math.pow(1e3,1/str.length); // Время обработки. Падает при увеличении длинны str.
+
+        if(Object.keys(dictionary).includes(str)){
+            setTimeout(() => {
+                let current_words_array = dictionary[str];
+
+                for(let i=0; i < current_words_array.length; i++){
+                    let li = document.createElement('li');
+                    let word = current_words_array[i];
+
+                    li.append(word);
+                    list.append(li);
+                }
+            }, ms)
+        }
+    }
+</script>
+</body>
+</html>
