@@ -1,0 +1,85 @@
+.content{
+    position: relative;
+    width: 40vw;
+    height: 100vh;
+    left: 30vw;
+    right: 30vw;
+    top: 0;
+}
+#image-wrapper{
+    width: 100%;
+    /*border: 2px solid black;*/
+    position: absolute;
+}
+#image-wrapper > img{
+    height: 100%;
+    width: 100%;
+    /*border: 2px solid black;*/
+
+}
+.petals{
+    height: 100%;
+    width: 100%;
+    /*border: 2px solid red;*/
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+#petal1{
+    height: 38%;
+    width: 33%;
+    right: 33%;
+    bottom: 0;
+}
+#petal2{
+    height: 30%;
+    width: 33%;
+    right: 0;
+    bottom: 25%;
+}
+#petal3{
+    height: 30%;
+    width: 38%;
+    right: 13%;
+    top: 5%;
+}
+#petal4{
+    height: 30%;
+    width: 33%;
+    left: 10%;
+    top: 5%;
+}
+#petal5{
+    height: 30%;
+    width: 33%;
+    left: 0;
+    bottom: 23%;
+}
+#central-petal{
+    height: 26%;
+    width: 33%;
+    left: 33%;
+    bottom: 38%;
+}
+
+.petals > div {
+    /*border: 2px solid green;*/
+    position: absolute;
+}
+
+.state{
+    /*border: 2px solid black;*/
+    height: 10%;
+    position: absolute;
+    bottom: 20%;
+    left: 20%;
+    right: 20%;
+    background: #f52d71;
+}
+.state > h1{
+    text-align: center;
+    font-size: 40px;
+    margin: 0;
+    font-weight: bold;
+    font-family: Verdana, serif;
+}
