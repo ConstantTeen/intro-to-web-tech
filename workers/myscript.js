@@ -1,4 +1,3 @@
-console.log('start');
 let w1 = new Worker('worker1.js');
 
 w1.addEventListener('message',(ev)=>{
@@ -88,4 +87,8 @@ function clear_canvas(){
 
     context.clearRect(0, 0, canv.width, canv.height);
     draw_coordinates();
+}
+
+function greetings(){
+    return 'Start!';
 }
