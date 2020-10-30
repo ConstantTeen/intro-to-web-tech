@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Workers</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<script type="module">
+    import {print_scope} from "./utils.js";
+
+    print_scope.call(globalThis, 'Init');
+
+    import("./myscript.js").then(module => {
+        let message = module.default();
+        console.log(message);
+    });
+</script>
+<canvas width="500" height="500" id="canvas"></canvas>
+</body>
+</html>
