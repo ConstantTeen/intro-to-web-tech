@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Site</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function getCookie(name) {
+                let matches = document.cookie.match(new RegExp(
+                    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+                ));
+                return matches ? decodeURIComponent(matches[1]) : undefined;
+            }
+
+            let btn = document.getElementById('send-btn');
+            let input = document.getElementById('input');
+            console.log(btn)
+            btn.addEventListener('click', ()=>{
+                let name = input.value;
+
+                if(name){
+                    console.log('Hi,' + name + '!');
+                    document.cookie = 'user-name=' + name;
+                }
+            });
+
+            let name_cookie = getCookie("user-name");
+
+            if(name_cookie){
+                input.setAttribute('value', name_cookie);
+            }
+        }, false);
+    </script>
+</head>
+<body>
+<h3>Input your name</h3>
+<input id="input" required="required" placeholder="..." type="text">
+<button id="send-btn">Send</button>
+</body>
+</html>
