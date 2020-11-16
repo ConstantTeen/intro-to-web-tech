@@ -1,14 +1,12 @@
 import tornado.ioloop
 import tornado.web
 import os
+import json
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-
-        if not self.get_cookie("user-name"):
-                self.write("<h2 id='greeting-message'>It seems like you didn't signed yet.</h2>")
-        else:
-            self.write("<h2 id='greeting-message'>Good to see you again, " + self.get_cookie("user-name") + "</h2>")
+        if not self.get_cookie("style"):
+            self.set_cookie("style-background", "#f3b7b8")
 
         with open("{}/index.html".format(os.getcwd()), 'rb') as f:
             data = f.read()

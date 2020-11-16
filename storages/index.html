@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Site</title>
+    <title>TextConverter</title>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             function getCookie(name) {
@@ -12,29 +12,55 @@
                 return matches ? decodeURIComponent(matches[1]) : undefined;
             }
 
-            let btn = document.getElementById('send-btn');
-            let input = document.getElementById('input');
-            console.log(btn)
-            btn.addEventListener('click', ()=>{
-                let name = input.value;
+            let text = document.getElementById('area');
+            let input = document.getElementById('submit');
+            let color_input = document.getElementById('choose-color');
+            let storage_text = localStorage.getItem("last-text");
+            let background = getCookie('style-background');
 
-                if(name){
-                    console.log('Hi,' + name + '!');
-                    document.cookie = 'user-name=' + name;
-                }
+            text.style.background = background;
+            color_input.value = background;
+
+            if(storage_text){
+                text.value = storage_text;
+            }
+
+            color_input.addEventListener('input', (event)=>{
+                const color = event.target.value;
+
+                document.cookie = 'style-background=' + color;
+                text.style.background = color;
+            })
+
+            input.addEventListener('click', ()=>{
+                text.value = backwards(text.value);
             });
 
-            let name_cookie = getCookie("user-name");
-
-            if(name_cookie){
-                input.setAttribute('value', name_cookie);
-            }
+            text.addEventListener('input',()=>{
+                localStorage.setItem("last-text", text.value);
+            })
         }, false);
+
+        function backwards(text){
+            let result = '';
+            let n = text.length;
+
+            for(let i=n-1; i >= 0; i--){
+                result+= text[i];
+            }
+            return result;
+        }
     </script>
+    <style>
+        textarea{
+            
+        }
+    </style>
 </head>
 <body>
-<h3>Input your name</h3>
-<input id="input" required="required" placeholder="..." type="text">
-<button id="send-btn">Send</button>
+<h1>Text converter</h1>
+<textarea id="area" placeholder="..." required="required" cols="50" rows="10"></textarea>
+<input id="choose-color" type="color" >
+<input id="submit" value="Convert" type="submit">
 </body>
 </html>
