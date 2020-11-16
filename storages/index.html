@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TextConverter</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function getCookie(name) {
+                let matches = document.cookie.match(new RegExp(
+                    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+                ));
+                return matches ? decodeURIComponent(matches[1]) : undefined;
+            }
+
+            let text = document.getElementById('area');
+            let input = document.getElementById('submit');
+            let color_input = document.getElementById('choose-color');
+            let storage_text = localStorage.getItem("last-text");
+            let background = getCookie('style-background');
+
+            text.style.background = background;
+            color_input.value = background;
+
+            if(storage_text){
+                text.value = storage_text;
+            }
+
+            color_input.addEventListener('input', (event)=>{
+                const color = event.target.value;
+
+                document.cookie = 'style-background=' + color;
+                text.style.background = color;
+            })
+
+            input.addEventListener('click', ()=>{
+                text.value = backwards(text.value);
+            });
+
+            text.addEventListener('input',()=>{
+                localStorage.setItem("last-text", text.value);
+            })
+        }, false);
+
+        function backwards(text){
+            let result = '';
+            let n = text.length;
+
+            for(let i=n-1; i >= 0; i--){
+                result+= text[i];
+            }
+            return result;
+        }
+    </script>
+    <style>
+        textarea{
+            
+        }
+    </style>
+</head>
+<body>
+<h1>Text converter</h1>
+<textarea id="area" placeholder="..." required="required" cols="50" rows="10"></textarea>
+<input id="choose-color" type="color" >
+<input id="submit" value="Convert" type="submit">
+</body>
+</html>
