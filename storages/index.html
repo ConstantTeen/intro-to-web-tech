@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>TextConverter</title>
+    <link rel="manifest" href="manifest.json">
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             function getCookie(name) {
@@ -16,10 +17,20 @@
             let input = document.getElementById('submit');
             let color_input = document.getElementById('choose-color');
             let storage_text = localStorage.getItem("last-text");
-            let background = getCookie('style-background');
 
-            text.style.background = background;
-            color_input.value = background;
+            try{
+                browser.cookies.get('style-background').then((background) => {
+                    text.style.background = background;
+                    color_input.value = background;
+                });
+            }catch (e){
+                console.log('Browser is not defined.');
+
+                let background = getCookie('style-background');
+
+                text.style.background = background;
+                color_input.value = background;
+            }
 
             if(storage_text){
                 text.value = storage_text;
@@ -38,7 +49,18 @@
 
             text.addEventListener('input',()=>{
                 localStorage.setItem("last-text", text.value);
-            })
+            });
+
+            let cookie_warning = document.getElementsByClassName('cookie-warning')[0];
+            let confirm_btn = document.getElementById('confirm');
+
+            if (!!cookie_warning && !!confirm_btn){
+                confirm_btn.addEventListener('click', ()=> {
+                    cookie_warning.style.display = 'none';
+                    document.cookie = 'usr-state=knows-about-cookie'
+                })
+            }
+
         }, false);
 
         function backwards(text){
@@ -51,6 +73,19 @@
             return result;
         }
     </script>
+    <style>
+        .cookie-warning{
+            position: fixed;
+            background: #E8BDBD;
+            text-align: center;
+            padding: 20px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 -0.5px 10px 0 rgba(0,0,0,0.06);
+        }
+    </style>
 </head>
 <body>
 <h1>Text converter</h1>

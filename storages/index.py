@@ -12,12 +12,26 @@ class MainHandler(tornado.web.RequestHandler):
             data = f.read()
             self.write(data)
 
+        usr_state = self.get_cookie("usr-state")
+
+        if not (usr_state == 'knows-about-cookie'):
+            with open("{}/cookie_warning.html".format(os.getcwd()), 'rb') as f:
+                        data = f.read()
+                        self.write(data)
         self.finish()
 
+class ManifestHandler(tornado.web.RequestHandler):
+    def get(self):
+        with open("{}/manifest.json".format(os.getcwd()), 'rb') as f:
+            data = f.read()
+            self.write(data)
+
+
 application = tornado.web.Application([
-    (r"/", MainHandler)
+    (r"/", MainHandler),
+    (r"/manifest.json", ManifestHandler)
 ])
 
 if __name__ == "__main__":
-    application.listen(8000)
+    application.listen(8888)
     tornado.ioloop.IOLoop.instance().start()

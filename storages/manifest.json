@@ -1,0 +1,10 @@
+{
+  "permissions":
+  [
+    "tabs",
+    "cookies",
+    "localhost:8000",
+    "notifications",
+    "activeTab"
+  ]
+}
