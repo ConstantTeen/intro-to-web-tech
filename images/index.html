@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ImagesSet</title>
+    <style>
+        #svg_image{
+            border: cadetblue dashed;
+            background: #d1d5d5;
+        }
+        #lines > path{
+            stroke: #ea7a18;
+            fill: transparent;
+            stroke-width: 4;
+        }
+        #circles > circle{
+            fill: red;
+        }
+    </style>
+</head>
+<body>
+<svg version="1.1" width="400" height="300" id="svg_image"
+     viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <filter id="my_filter">
+                <feGaussianBlur in="SourceGraphic"
+                                result="gauss"
+                                stdDeviation="5"/>
+                <feMorphology in="gauss"
+                              radius="15"/>
+            </filter>
+        </defs>
+
+    <g id="lines">
+        <path d="M0,0 C480,0 120,400 600,400" />
+        <path d="M0,1 L 300,1 L 300,399 L 600,399"/>
+    </g>
+    <g id="circles">
+        <circle cx="150" cy="300"  r="100" filter="url(#my_filter)"/>
+        <circle cx="450" cy="100" r="100" filter="url(#my_filter)"/>
+    </g>
+</svg>
+<img width="400" height="300" src="bitmap.png" alt="bitmap bird" id="bitmap_img">
+<button id="bitmap_btn">Show/hide</button>
+<script src="my_script.js"></script>
+</body>
+</html>
