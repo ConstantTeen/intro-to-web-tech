@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>ImagesSet</title>
     <style>
-        #svg_image{
+        svg{
             border: cadetblue dashed;
             background: #d1d5d5;
         }
@@ -16,10 +16,26 @@
         #circles > circle{
             fill: red;
         }
+        #svg_image2{
+            filter: url('#outside_filter')
+        }
     </style>
 </head>
 <body>
-<svg version="1.1" width="400" height="300" id="svg_image"
+<svg xmlns="http://www.w3.org/2000/svg" display="none">
+    <defs>
+        <filter id="outside_filter">
+            <feMorphology operator="erode" radius="4"/>
+        </filter>
+    </defs>
+</svg>
+
+<svg width="400" height="300" id="svg_image2"
+     viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+    <path d="M300 100 L500 300 L150 150 L450 150 L100 300z" fill="red"/>
+</svg>
+
+<svg width="400" height="300" id="svg_image"
      viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <filter id="my_filter">
