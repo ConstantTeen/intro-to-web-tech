@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bouncy Ball</title>
+    <script src="utils.js"></script>
+</head>
+<body>
+<canvas width='600' height=400 style="border: 1px solid black"></canvas>
+
+<svg width="600" height="400" id="svg_image2"
+     viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid black">
+    <ellipse cx="50" cy="100" rx="25" ry="25" fill="red" stroke="black" stroke-width="1px"/>
+</svg>
+
+<script>
+    var canv = document.querySelector('canvas');
+    var ctx = canv.getContext('2d');
+
+    var svg = document.querySelector('svg');
+    var ellipse = svg.querySelector('ellipse');
+
+    var v0 = 800;
+    var x0 = 50;
+    var y0 = 300;
+    var g = 9.8*3.793627*1000;
+    var dx = Math.sqrt(2*y0/g)*v0;
+    var r = 25;
+
+    animate({
+        duration: 5000,
+        timing: timing,
+        draw: draw
+    });
+</script>
+
+</body>
+</html>
