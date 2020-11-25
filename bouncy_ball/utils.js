@@ -22,7 +22,7 @@ function draw(progress) {
 
     if(inversed_y < r/2){
         current_y = 400 - r/2;
-        coef = 0.75;
+        coef = 0.5;
         radiusY*= coef
     }else if(inversed_y < r){
         coef = inversed_y/r;
@@ -34,9 +34,8 @@ function draw(progress) {
     ctx.clearRect(0,0,600,400);
     ctx.fillStyle = 'red';
     ctx.save();
-    ctx.scale(1, coef);
     ctx.beginPath();
-    ctx.ellipse(current_x, current_y/coef, radiusX, radiusY, 0, 0, 2*Math.PI);
+    ctx.ellipse(current_x, current_y, radiusX, radiusY, 0, 0, 2*Math.PI);
     ctx.fill();
     ctx.closePath();
     ctx.restore();
