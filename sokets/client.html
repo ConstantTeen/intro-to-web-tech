@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+    <title>Web-socet</title>
+</head>
+<body>
+
+<script>
+    var ws = new WebSocket("ws://localhost:8080/ws");
+    ws.onopen = function() {
+        console.log('Connected')
+    };
+    ws.onmessage = function (evt) {
+        let obj = JSON.parse(evt.data);
+
+        if(obj.type === 'array'){
+            show_desk(obj.message);
+            let coords = prompt('Coordinates: ','0,0');
+            let x = coords[0];
+            let y = coords[2];
+            ws.send(JSON.stringify([x,y]));
+        }else if(obj.type === 'win') {
+            show_desk(obj.message);
+            console.log('Congrats! You win');
+            ws.close();
+        }else if (obj.type === 'losing'){
+            show_desk(obj.message);
+            console.log('Sorry. You lost');
+            ws.close();
+        }else if (obj.type === 'draw'){
+            show_desk(obj.message);
+            console.log("That's a draw");
+            ws.close();
+        }else if (obj.type === 'repeat'){
+            console.log("Wrong square was chosen!");
+            let coords = prompt('Coordinates: ','0,0');
+            let x = coords[0];
+            let y = coords[2];
+            ws.send(JSON.stringify([x,y]));
+        }
+    };
+
+    function show_desk(array){
+        for(let i=0; i < 3; i++){
+            let row = convert(array[i]);
+
+            console.log(row[0] + ' | ' + row[1] + ' | ' + row[2]);
+
+            if (i < 2) console.log('----------');
+            else console.log(' ');
+        }
+    }
+
+    function convert(row){
+        return [ d[row[0]], d[row[1]], d[row[2]] ]
+    }
+
+    let d = {
+        '1': 'x',
+        "-1": 'o',
+        "0": ' '
+    }
+
+</script>
+
+</body>
+</html>
